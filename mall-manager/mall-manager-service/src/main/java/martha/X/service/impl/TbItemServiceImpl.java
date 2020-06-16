@@ -39,17 +39,19 @@ public class TbItemServiceImpl implements TbItemService {
 	}
 
 	@Override
-	public FjnyResult saveItem(TbItem tbItem) {
+	public FjnyResult saveItem(TbItem tbItem,String desc) {
+		System.out.println(tbItem);
 		long genItemId = IDUtils.getItemId();
 		tbItem.setId(genItemId);
 		tbItem.setCreated(new Date());
 		tbItem.setUpdated(new Date());
 		tbItem.setStatus((byte)1);
 		int insertSelective = tbItemMapper.insertSelective(tbItem);
-		if (insertSelective < 0) {
-			return FjnyResult.build(500, "添加商品失败！");
-		}
-		return FjnyResult.ok(tbItem);
+		//TbItemDesc record = new TbItemDesc();
+		/*
+		 * if (insertSelective < 0) { return FjnyResult.build(500, "添加商品失败！"); }
+		 */
+		return FjnyResult.ok();
 	}
 
 }

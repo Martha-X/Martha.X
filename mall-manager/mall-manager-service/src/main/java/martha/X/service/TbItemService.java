@@ -8,5 +8,5 @@ public interface TbItemService {
 	//获取商品列表
 	public EsayUIDataGridResult getTbItemList(Integer page,Integer rows);
 	//添加商品
-	public FjnyResult saveItem(TbItem tbItem);
+	public FjnyResult saveItem(TbItem tbItem,String desc);
 }
