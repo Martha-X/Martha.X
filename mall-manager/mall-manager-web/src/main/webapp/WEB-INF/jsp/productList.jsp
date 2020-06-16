@@ -11,7 +11,7 @@
 		<div style="height: 650px;">
 			<table id="dgTbItem"></table>
 		</div>
-		<br /> <br />
+		<br/> <br/>
 		<table id="pg" style="width: 300px"></table>
 	</div>
 	<script type="text/javascript">
@@ -20,28 +20,33 @@
 			fit : true,
 			pagination : true,
 			fitColumns : true,
-			toolbar : [ {
-				text : '添加',
-				iconCls : 'fa fa-plus',
-				handler : function() {
+			toolbar: [{
+				text: '新增',
+				iconCls: 'fa fa-plus',
+				handler: function() {
+					$("#item-add").click();
 				}
 			}, {
-				text : '编辑',
-				iconCls : 'fa fa-edit',
-				handler : function() {
-				}
+				text: '编辑',
+				iconCls: 'fa fa-edit',
+				handler: function() {}
 			}, {
-				text : '保存',
-				iconCls : 'fa fa-save',
-				handler : function() {
-				}
-			}, {
-				text : '删除',
-				iconCls : 'fa fa-remove',
-				handler : function() {
-				}
-			} ],
-
+				text: '保存',
+				iconCls: 'fa fa-save',
+				handler: function() {}
+			},{
+				text: '删除',
+				iconCls: 'fa fa-remove',
+				handler: function() {}
+			},{
+				text:'上架',
+				iconCls:'"fa fa-upload',
+				handler:function(){}
+			},{
+				text:'下架',
+				iconCls:'"fa fa-download',
+				handler:function(){}
+			}],
 			height : 400,
 			columns : [ [ {
 				field : 'id',
@@ -82,10 +87,10 @@
 			}, {
 				field : 'image',
 				title : '商品图片',
-				width : 100,
+				width : 300,
 				align:'center',
 				formatter:function(value,row){
-					return "<img src="+value+" width='200px' height='200px'> ";
+					return "<img src=" + value + " width='300px' height='200px'>";
 				}
 			} ,{
 				field : 'cid',

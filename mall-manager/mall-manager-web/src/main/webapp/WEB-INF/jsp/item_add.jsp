@@ -8,7 +8,7 @@
 <style type="text/css">
 .form-item {
 	margin-bottom: 15px;
-	width: 50%;
+	width: 100%;
 	float: left;
 }
 
@@ -33,7 +33,7 @@
 		</div>
 		<div class="form-item">
 			<label for="" class="label-top">商品价格：</label>
-			<input type="text" name="price" class="easyui-numberbox" data-options="min:0,precision:2" />
+			<input type="text" name="price" class="easyui-numberbox" width="50" data-options="min:0,precision:2" />
 		</div>
 		<div class="form-item">
 			<label for="" class="label-top">商品库存：</label>
@@ -52,7 +52,7 @@
 	</form>
 	<script type="text/javascript">
 		function submitForm(){
-			if($('#itemAddForm').form('validate')){
+			if(!$('#itemAddForm').form('validate')){
 				$.messager.alert('提示','表单还未填写完成！');
 				return;
 			}
@@ -64,12 +64,12 @@
 					$("#dgTbItem").datagrid("reload");
 					$.messager.alert('操作成功','恭喜您添加商品成功！','warning',function(){
 						$("#item-list").click();
-					})
+					});
 				}
-			})
+			});
 		}
 		function clearForm(){
-			$(itemAddForm).reset
+			$('itemAddForm').form('reset')
 		}
 	
 	</script>

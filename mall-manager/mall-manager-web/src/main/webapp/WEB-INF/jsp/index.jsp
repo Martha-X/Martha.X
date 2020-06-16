@@ -10,12 +10,14 @@
 	charset="utf-8"></script>
 <script src="easyui/jquery.easyui.min.js" type="text/javascript"
 	charset="utf-8"></script>
-<script src="easyui/locale/easyui-lang-zh_CN.js"
-	type="text/javascript" charset="utf-8"></script>
+<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
+	charset="utf-8"></script>
 <!--开发-->
 <link rel="stylesheet" href="easyui/themes/gray/easyui.css">
-<link rel="stylesheet" href="easyui/themes/super/css/font-awesome.min.css">
-<link rel="stylesheet" href="easyui/themes/super/superBlue.css" id="themeCss">
+<link rel="stylesheet"
+	href="easyui/themes/super/css/font-awesome.min.css">
+<link rel="stylesheet" href="easyui/themes/super/superBlue.css"
+	id="themeCss">
 <script src="js/super.js" type="text/javascript" charset="utf-8"></script>
 
 <!--测试dist-->
@@ -25,6 +27,7 @@
 	href="easyui/themes/super/superBlue.css" id="themeCss">
 <script type="text/javascript" src="easyui/themes/super/super.js"></script>
 <script src="js/superDemo.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="js/common.js"></script>
 </head>
 <body id="main" class="easyui-layout">
 	<div data-options="region:'north',border:false" class="super-north">
@@ -54,8 +57,9 @@
 								<div id="logout">退出</div>
 							</div>
 						</li>
-						<li class="user"><span class="user-icon"><img
-								src="img/favicon.png" /></span>管理员</li>
+						<li class="user"><span class="user-icon"> <img
+								src="img/favicon.png"/>
+						</span>管理员</li>
 					</ul>
 				</div>
 			</div>
