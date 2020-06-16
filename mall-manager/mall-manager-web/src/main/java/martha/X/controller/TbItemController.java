@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import martha.X.pojo.TbItem;
 import martha.X.service.TbItemService;
 import martha.X.utils.EsayUIDataGridResult;
+import martha.X.utils.FjnyResult;
 
 @Controller
 @RequestMapping("/item")
@@ -20,5 +22,11 @@ public class TbItemController {
 	public EsayUIDataGridResult getTbItemList(@RequestParam(defaultValue = " 1") Integer page,
 			@RequestParam(defaultValue = "10") Integer rows) {
 		return tbItemService.getTbItemList(page, rows);
+	}
+	
+	@RequestMapping("/save")
+	@ResponseBody
+	public FjnyResult saveTbItem(TbItem tbItem) {
+		return tbItemService.saveItem(tbItem);
 	}
 }

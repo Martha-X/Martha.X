@@ -9,13 +9,13 @@
 <body>
 	<div class="super-theme-example">
 		<div style="height: 650px;">
-			<table id="dg"></table>
+			<table id="dgTbItem"></table>
 		</div>
 		<br /> <br />
 		<table id="pg" style="width: 300px"></table>
 	</div>
 	<script type="text/javascript">
-		$('#dg').datagrid({
+		$('#dgTbItem').datagrid({
 			url: 'item/getItem',
 			fit : true,
 			pagination : true,
@@ -45,26 +45,72 @@
 			height : 400,
 			columns : [ [ {
 				field : 'id',
-				title : 'id',
+				title : '商品id',
 				width : 100,
+				align:'center',
 				sortable : true
 			}, {
 				field : 'title',
-				title : 'title',
+				title : '商品标题',
 				width : 100,
+				align:'center',
 				sortable : true
 			}, {
-				field : 'price',
-				title : 'price',
+				field : 'sellPoint',
+				title : '商品卖点',
 				width : 100,
-				align : 'right',
+				align:'center',
+				sortable : true
+			},{
+				field : 'price',
+				title : '商品价格',
+				width : 100,
+				align:'center',
+				sortable : true
+			}, {
+				field : 'num',
+				title : '商品库存',
+				width : 100,
+				align:'center',
+				sortable : true
+			},{
+				field : 'barcode',
+				title : '商品条形码',
+				width : 100,
+				align:'center',
 				sortable : true
 			}, {
 				field : 'image',
-				title : 'image',
+				title : '商品图片',
 				width : 100,
-				align : 'right'
-			} ] ]
+				align:'center',
+				formatter:function(value,row){
+					return "<img src="+value+" width='200px' height='200px'> ";
+				}
+			} ,{
+				field : 'cid',
+				title : '商品类目',
+				width : 100,
+				align:'center',
+			},{
+				field : 'status',
+				title : '商品状态',
+				width : 100,
+				align:'center',
+				formatter:TT.formatItemStatus
+			},{
+				field : 'created',
+				title : '创建时间',
+				width : 100,
+				align:'center',
+				formatter:TT.formatDateTime
+			},{
+				field : 'updated',
+				title : '更新时间',
+				width : 100,
+				align:'center',
+				formatter:TT.formatDateTime
+			}] ]
 		});
 	</script>
 </body>

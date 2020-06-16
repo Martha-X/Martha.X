@@ -2,6 +2,7 @@ package martha.X.service.impl;
 
 import java.util.List;
 
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -14,6 +15,8 @@ import martha.X.pojo.TbItem;
 import martha.X.pojo.TbItemExample;
 import martha.X.service.TbItemService;
 import martha.X.utils.EsayUIDataGridResult;
+import martha.X.utils.FjnyResult;
+import martha.X.utils.IDUtils;
 @Service
 public class TbItemServiceImpl implements TbItemService {
 	@Resource
@@ -32,6 +35,17 @@ public class TbItemServiceImpl implements TbItemService {
 		long total = pageInfo.getTotal();
 		EsayUIDataGridResult esayUIDataGridResult = new EsayUIDataGridResult(total,list);
 		return esayUIDataGridResult;
+	}
+
+	@Override
+	public FjnyResult saveItem(TbItem tbItem) {
+		long genItemId = IDUtils.getItemId();
+		tbItem.setId(genItemId);
+		int insertSelective = tbItemMapper.insertSelective(tbItem);
+		if(insertSelective<0) {
+			return FjnyResult.build(500,"添加商品失败！");
+		}
+		return FjnyResult.ok(tbItem);
 	}
 
 }
