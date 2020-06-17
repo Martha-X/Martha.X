@@ -40,12 +40,15 @@ public class TbItemServiceImpl implements TbItemService {
 
 	@Override
 	public FjnyResult saveItem(TbItem tbItem,String desc) {
-		System.out.println(tbItem);
-		long genItemId = IDUtils.getItemId();
-		tbItem.setId(genItemId);
+		System.out.println(tbItem.getImage());
+		long itemId = IDUtils.getItemId();
+		System.out.println(itemId);
+		tbItem.setId(itemId);
+		tbItem.setCid(560);
 		tbItem.setCreated(new Date());
 		tbItem.setUpdated(new Date());
 		tbItem.setStatus((byte)1);
+		System.out.println(tbItem);
 		int insertSelective = tbItemMapper.insertSelective(tbItem);
 		//TbItemDesc record = new TbItemDesc();
 		/*

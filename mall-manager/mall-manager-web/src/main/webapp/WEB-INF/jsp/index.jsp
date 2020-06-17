@@ -19,7 +19,12 @@
 <link rel="stylesheet" href="easyui/themes/super/superBlue.css"
 	id="themeCss">
 <script src="js/super.js" type="text/javascript" charset="utf-8"></script>
-
+<link href="/js/kindeditor-4.1.10/themes/default/default.css"
+	type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8"
+	src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 <!--测试dist-->
 <link rel="stylesheet" type="text/css"
 	href="easyui/themes/super/css/font-awesome.min.css">
@@ -58,7 +63,7 @@
 							</div>
 						</li>
 						<li class="user"><span class="user-icon"> <img
-								src="img/favicon.png"/>
+								src="img/favicon.png" />
 						</span>管理员</li>
 					</ul>
 				</div>
