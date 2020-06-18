@@ -29,7 +29,9 @@
 			}, {
 				text: '编辑',
 				iconCls: 'fa fa-edit',
-				handler: function() {}
+				handler: function() {
+					$("#item-update").click();
+				}
 			}, {
 				text: '保存',
 				iconCls: 'fa fa-save',

@@ -51,15 +51,14 @@
 				name="barcode" class="easyui-numberbox" data-options="required:true" />
 		</div>
 		<div class="form-item">
-			<label for="" class="label-top">商品图片:</label>
-			 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
-	                 <input type="hidden" name="image"/>
+			<label for="" class="label-top">商品图片:</label> <a
+				href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
+			<input type="hidden" name="image" />
 		</div>
 		<a href="javascript:void(0)" class="easyui-linkbutton warning"
 			onclick="clearForm()">取消</a> <a href="javascript:void(0)"
 			class="easyui-linkbutton success" onclick="submitForm()">添加</a>
 	</form>
-	<img src="ftp://Martha@127.0.0.1/image/03.jfif">
 	<script type="text/javascript">
 		var itemAddEditor;
 		//页面初始化完毕后执行此方法
@@ -75,22 +74,25 @@
 			});
 		});
 		function submitForm() {
+			//输出表单键值对
 			alert($('#itemAddForm').serialize())
-			console.log();
+			//当全部字段不符合要求时阻止表单提交并return
 			if (!$('#itemAddForm').form('validate')) {
 				$.messager.alert('提示', '表单还未填写完成！');
 				return;
 			}
 			//ajax的post方式提交表单
 			//$('#itemAddForm').serialize()将表单序列号为key-value形式的字符串
-
+			//将数据发送至/item/save【URL】，发送到服务器的数据$('#itemAddForm').serialize()【Data】，请求成功时运行的函数【function(data)】
 			$.post("/item/save", $('#itemAddForm').serialize(), function(data) {
+				console.log(data);
 				if (data.status == 200) {
+					//重新加载商品列表控件
 					$("#dgTbItem").datagrid("reload");
-					$.messager.alert('操作成功', '恭喜您添加商品成功！', 'warning',
-							function() {
-								$("#item-list").click();
-							});
+					//messager.alert(String title,String message,Object responseValue,function)
+					$.messager.alert('操作成功', '恭喜您添加商品成功！', 'info', function() {
+						$("#item-list").click();//回到商品管理页面
+					});
 				}
 			});
 		}
