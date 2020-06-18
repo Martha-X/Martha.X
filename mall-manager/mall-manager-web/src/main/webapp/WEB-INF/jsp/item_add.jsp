@@ -51,9 +51,9 @@
 				name="barcode" class="easyui-numberbox" data-options="required:true" />
 		</div>
 		<div class="form-item">
-			<label for="" class="label-top">文件选择：</label> <input
-				class="easyui-filebox" name="image"
-				data-options="buttonText:'上传图片',buttonIcon:'fa fa-upload'">
+			<label for="" class="label-top">商品图片:</label>
+			 <a href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
+	                 <input type="hidden" name="image"/>
 		</div>
 		<a href="javascript:void(0)" class="easyui-linkbutton warning"
 			onclick="clearForm()">取消</a> <a href="javascript:void(0)"

@@ -17,11 +17,13 @@ public class PictureResult {
 		this.message = message;
 	}
 
+	public PictureResult() {
+	}
+
 	// 成功时调用的方法
 	public static PictureResult ok(String url) {
 		return new PictureResult(0, url, null);
 	}
-
 	// 失败时调用的方法
 	public static PictureResult error(String message) {
 		return new PictureResult(1, null, message);
