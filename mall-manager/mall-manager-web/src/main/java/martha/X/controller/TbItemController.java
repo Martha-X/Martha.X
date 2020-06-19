@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import martha.X.pojo.TbItem;
 import martha.X.service.TbItemCatService;
+import martha.X.service.TbItemDescService;
 import martha.X.service.TbItemService;
 import martha.X.utils.EasyUITreeNodeBean;
 import martha.X.utils.EsayUIDataGridResult;
@@ -23,7 +25,8 @@ public class TbItemController {
 	public TbItemService tbItemService;
 	@Autowired
 	public TbItemCatService tbItemCatService;
-
+	@Autowired
+	public TbItemDescService tbItemDescService;
 	@RequestMapping("/getItem")
 	@ResponseBody
 	public EsayUIDataGridResult getTbItemList(@RequestParam(defaultValue = " 1") Integer page,
@@ -42,5 +45,12 @@ public class TbItemController {
 	@ResponseBody
 	public List<EasyUITreeNodeBean> getTbItemCat(@RequestParam(defaultValue="0")Long id) {
 		return tbItemCatService.getTbItemCatList(id);
+	}
+	
+	@RequestMapping("/query/item-desc/{id}")
+	@ResponseBody
+	public FjnyResult getTbItemDesc(@PathVariable Long id) {
+		System.out.println("itemId"+id);
+		return tbItemDescService.getTbItemDesc(id);
 	}
 }

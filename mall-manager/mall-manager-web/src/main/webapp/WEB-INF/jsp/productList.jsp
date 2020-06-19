@@ -38,8 +38,14 @@
 										onLoad:function(){
 											var data = $("#dgTbItem").datagrid("getSelections")[0];
 											$("#itemUpdateForm").form('load',data);
+											//将商品描述进行显示
+											$.getJSON("item/query/item-desc/" + data.id,function(result){
+												if(result.status == 200){
+													itemUpdateEditor.html(result.data.itemDesc);
+												}
+											})
 											TT.init({
-												"image":data.image,
+												"pics":data.image,
 												"cid":data.cid,
 												fun:function(node){
 													
