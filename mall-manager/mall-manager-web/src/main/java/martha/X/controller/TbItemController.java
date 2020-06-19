@@ -34,6 +34,7 @@ public class TbItemController {
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
 	public FjnyResult saveTbItem(TbItem tbItem,String desc) {
+		System.out.println(desc);
 		return tbItemService.saveItem(tbItem,desc);
 	}
 	

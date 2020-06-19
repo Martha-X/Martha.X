@@ -55,6 +55,11 @@
 				href="javascript:void(0)" class="easyui-linkbutton picFileUpload">上传图片</a>
 			<input type="hidden" name="image" />
 		</div>
+		<div class="form-item">
+			<label for="" class="label-top" style="align-content: center;">商品描述:</label>
+			<textarea style="width: 800px; height: 300px; visibility: hidden;"
+				name="desc"></textarea>
+		</div>
 		<a href="javascript:void(0)" class="easyui-linkbutton warning"
 			onclick="clearForm()">取消</a> <a href="javascript:void(0)"
 			class="easyui-linkbutton success" onclick="submitForm()">添加</a>
@@ -81,6 +86,7 @@
 				$.messager.alert('提示', '表单还未填写完成！');
 				return;
 			}
+			itemAddEditor.sync();
 			//ajax的post方式提交表单
 			//$('#itemAddForm').serialize()将表单序列号为key-value形式的字符串
 			//将数据发送至/item/save【URL】，发送到服务器的数据$('#itemAddForm').serialize()【Data】，请求成功时运行的函数【function(data)】
