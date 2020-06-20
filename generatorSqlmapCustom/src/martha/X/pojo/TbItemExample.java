@@ -146,7 +146,6 @@ public class TbItemExample {
         }
 
         public Criteria andIdIn(List<Long> values) {
-        	System.out.println(values);
             addCriterion("id in", values, "id");
             return (Criteria) this;
         }

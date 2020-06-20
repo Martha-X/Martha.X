@@ -96,7 +96,7 @@
 					//重新加载商品列表控件
 					$("#dgTbItem").datagrid("reload");
 					//messager.alert(String title,String message,Object responseValue,function)
-					$.messager.alert('操作成功', '恭喜您添加商品成功！', 'info', function() {
+					$.messager.alert('Martha-X', '添加商品成功！', 'info', function() {
 						$("#item-list").click();//回到商品管理页面
 					});
 				}

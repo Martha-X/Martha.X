@@ -76,7 +76,7 @@
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="martha.X.pojo.TbItemParamExample" >
     select
-    <if test="example.distinct" >
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
@@ -86,7 +86,7 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="example.orderByClause != null" >
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>

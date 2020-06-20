@@ -1,10 +1,12 @@
 package martha.X.service.impl;
 
 import java.util.Date;
+
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -22,16 +24,18 @@ import martha.X.utils.IDUtils;
 
 @Service
 public class TbItemServiceImpl implements TbItemService {
-	@Resource
+	@Autowired
 	private TbItemMapper tbItemMapper;
-	@Resource
+	@Autowired
 	private TbItemDescMapper tbItemDescMapper;
+
 	@Override
 	public EsayUIDataGridResult getTbItemList(Integer page, Integer rows) {
 		// 分页插件
 		PageHelper.startPage(page, rows);
-		TbItemExample exam = new TbItemExample();
-		List<TbItem> list = tbItemMapper.selectByExample(exam);
+		TbItemExample example = new TbItemExample();
+		example.createCriteria().andStatusNotEqualTo((byte) 3);
+		List<TbItem> list = tbItemMapper.selectByExample(example);
 		PageInfo<TbItem> pageInfo = new PageInfo<>(list);
 		long total = pageInfo.getTotal();
 		EsayUIDataGridResult esayUIDataGridResult = new EsayUIDataGridResult(total, list);
@@ -42,7 +46,6 @@ public class TbItemServiceImpl implements TbItemService {
 	public FjnyResult saveItem(TbItem tbItem, String desc) {
 		long itemId = IDUtils.getItemId();
 		tbItem.setId(itemId);
-		tbItem.setCid(560);
 		tbItem.setCreated(new Date());
 		tbItem.setUpdated(new Date());
 		tbItem.setStatus((byte) 1);
@@ -60,4 +63,31 @@ public class TbItemServiceImpl implements TbItemService {
 		return FjnyResult.ok();
 	}
 
+	@Override
+	public FjnyResult updateTbItem(TbItem tbItem, String desc) {
+		// 更新商品信息
+		tbItem.setUpdated(new Date());
+		tbItemMapper.updateByPrimaryKeySelective(tbItem);
+		// 更新商品描述信息
+		TbItemDesc record = new TbItemDesc();
+		record.setItemId(tbItem.getId());
+		record.setItemDesc(desc);
+		record.setUpdated(new Date());
+		tbItemDescMapper.updateByPrimaryKeySelective(record);
+		return FjnyResult.ok();
+	}
+
+	@Override
+	public FjnyResult operateTbItem(List<Long> ids, List<String> optionsId) {
+		try {
+			TbItem record = new TbItem();
+			record.setStatus((byte) Integer.parseInt(optionsId.get(0)));
+			TbItemExample example = new TbItemExample();
+			example.createCriteria().andIdIn(ids);
+			tbItemMapper.updateByExampleSelective(record, example);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return FjnyResult.ok();
+	}
 }

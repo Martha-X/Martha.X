@@ -16,7 +16,7 @@ public interface TbItemParamMapper {
 
     int insertSelective(TbItemParam record);
 
-    List<TbItemParam> selectByExampleWithBLOBs(@Param("example") TbItemParamExample example);
+    List<TbItemParam> selectByExampleWithBLOBs(TbItemParamExample example);
 
     List<TbItemParam> selectByExample(TbItemParamExample example);
 

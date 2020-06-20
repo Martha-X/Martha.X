@@ -2,14 +2,24 @@ package martha.X.pojo;
 
 import java.util.Date;
 
-public class TbItemDesc {
+public class TbItemParamItem {
+    private Long id;
+
     private Long itemId;
 
     private Date created;
 
     private Date updated;
 
-    private String itemDesc;
+    private String paramData;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getItemId() {
         return itemId;
@@ -35,11 +45,11 @@ public class TbItemDesc {
         this.updated = updated;
     }
 
-    public String getItemDesc() {
-        return itemDesc;
+    public String getParamData() {
+        return paramData;
     }
 
-    public void setItemDesc(String itemDesc) {
-        this.itemDesc = itemDesc == null ? null : itemDesc.trim();
+    public void setParamData(String paramData) {
+        this.paramData = paramData == null ? null : paramData.trim();
     }
 }

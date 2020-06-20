@@ -16,7 +16,7 @@ public interface TbItemMapper {
 
     int insertSelective(TbItem record);
 
-    List<TbItem> selectByExample(@Param("example")TbItemExample example);
+    List<TbItem> selectByExample(TbItemExample example);
 
     TbItem selectByPrimaryKey(Long id);
 

@@ -79,7 +79,6 @@
 				<ul>
 					<li id="item-list" data-url='productList'>商品管理</li>
 					<li id="item-add" data-url='item_add'>添加商品</li>
-					<li id="item-update" data-url='item_update'>编辑商品</li>
 				</ul>
 			</div>
 		</div>
