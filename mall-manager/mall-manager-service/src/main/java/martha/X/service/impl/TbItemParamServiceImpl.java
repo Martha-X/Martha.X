@@ -1,5 +1,6 @@
 package martha.X.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,17 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import martha.X.mapper.TbItemCatMapper;
+import martha.X.mapper.TbItemDescMapper;
 import martha.X.mapper.TbItemParamMapper;
 import martha.X.pojo.TbItemCat;
+import martha.X.pojo.TbItemDesc;
 import martha.X.pojo.TbItemParam;
 import martha.X.pojo.TbItemParamExample;
+import martha.X.pojo.TbItemParamExample.Criteria;
 import martha.X.service.TbItemParamService;
 import martha.X.utils.EsayUIDataGridResult;
+import martha.X.utils.ExceptionUtil;
+import martha.X.utils.FjnyResult;
 @Service
 public class TbItemParamServiceImpl implements TbItemParamService{
 	@Autowired
@@ -41,5 +47,43 @@ public class TbItemParamServiceImpl implements TbItemParamService{
 	public String geItemCatName(Long cid) {
 		TbItemCat cat = tbItemCatMapper.selectByPrimaryKey(cid);
 		return cat.getName();
+	}
+
+	@Override
+	public FjnyResult checkParam(Long itemCatId) {
+		try {
+			TbItemParamExample example = new TbItemParamExample();
+			Criteria createCriteria = example.createCriteria();
+			createCriteria.andItemCatIdEqualTo(itemCatId);
+			List<TbItemParam> list = tbItemParamMapper.selectByExampleWithBLOBs(example);
+			if(list == null || list.isEmpty()) {
+				return FjnyResult.ok();
+			}
+			return FjnyResult.ok(list.get(0));
+		}catch(Exception e) {
+			return FjnyResult.build(500,ExceptionUtil.getStackTrace(e));
+		}
+	}
+
+	@Override
+	public FjnyResult addItemParam(Long itemCatId, String paramData) {
+		try {
+			TbItemParam record = new TbItemParam();
+			record.setItemCatId(itemCatId);
+			record.setParamData(paramData);
+			record.setCreated(new Date());
+			record.setUpdated(new Date());
+			tbItemParamMapper.insert(record);
+			return FjnyResult.ok();
+		}catch(Exception e) {
+			return FjnyResult.build(500,ExceptionUtil.getStackTrace(e));
+		}
+	}
+
+	@Override
+	public FjnyResult getTbItemParamList(Long id) {
+		TbItemParam itemParamList = tbItemParamMapper.selectByPrimaryKey(id);
+		System.out.println(itemParamList);
+		return FjnyResult.ok(itemParamList);
 	}
 }

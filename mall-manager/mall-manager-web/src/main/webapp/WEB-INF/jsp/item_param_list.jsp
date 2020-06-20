@@ -6,6 +6,9 @@
 		<table id="itemParamList"></table>
 	</div>
 	<br /> <br />
+	<div id="itemParamUpadteWindow" class="easyui-window" title="Martha-X"
+		style="width: 80%; height: 80%;"
+		data-options="iconCls:'icon-save',modal:true,closed:'true',href:'item_param_update'"></div>
 </div>
 <script type="text/javascript">
 	$('#itemParamList')
@@ -19,12 +22,15 @@
 				text : '新增',
 				iconCls : 'fa fa-plus',
 				handler : function() {
-					//$("#item-add").click();
+					TT.createWindow({url:"item_param_add"});
 				}
 			}, {
 				text : '编辑',
 				iconCls : 'fa fa-edit',
 				handler : function() {
+					var data = [{"group":"g1","params":["aa","bb","cc"]},{"group":"g2","params":["ad","sd"]},{"group":"g3","params":["sdd","sdfs","dfg"]}];
+					//TT.changeItemParam(data,"itemParamUpdateTable");
+					console.log(123);
 					var ids = getSelections();
 					//判断如果未选定行，不执行，提示
 					if(ids.length == 0 || ids.indexOf(',') > 0){
@@ -32,25 +38,21 @@
 						return;
 					}
 					//如果选定多行数据提示只能选择一个商品
-					$("#itemUpadteWindow").window({
+					$("#itemParamUpadteWindow").window({
 						onLoad:function(){
-							var data = $("#dgTbItem").datagrid("getSelections")[0];
-							$("#itemUpdateForm").form('load',data);
+							var data = $("#itemParamList").datagrid("getSelections")[0];
+							console.log(data);
+							$("#itemParamUpdateTable").form('load',data);
 							//将商品描述进行显示
-							$.getJSON("item/query/item-desc/" + data.id,function(result){
+							$.getJSON("item/param/query/itemParamList/" + data.id,function(result){
 								if(result.status == 200){
-									itemUpdateEditor.html(result.data.itemDesc);
+									console.log(result);
 								}
 							})
 							TT.init({
-								"pics":data.image,
-								"cid":data.cid,
-								fun:function(node){
-									console.log("node");
-									console.log(node);
-								}
+								"cid":data.itemCatName,
 							});
-							console.log(data);
+							TT.changeItemParam(data,"itemParamUpdateTable");
 						}
 					}).window('open');
 				}
@@ -117,5 +119,15 @@
 			arr.push(e.group);
 		});
 		return arr.join(",");
+	}
+	function getSelections(){
+		var itemList = $("#itemParamList");
+		var sels = itemList.datagrid("getSelections");
+		var ids = [];
+		for(var i in sels){
+			ids.push(sels[i].id);
+		}
+		ids = ids.join(",");
+		return ids;
 	}
 </script>

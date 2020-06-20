@@ -112,7 +112,7 @@ var TT = FJNY = {
     // 初始化选择类目组件
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
-    		console.log(data);
+    		console.log("42");
     		var _ele = $(e);
     		if(data && data.cid){
     			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
@@ -198,16 +198,18 @@ var TT = FJNY = {
     },
     
     changeItemParam : function(node,formId){
-    	$.getJSON("/item/param/query/itemcatid/" + node.id,function(data){
+    	console.log(formId);
+    	console.log(node);
+    	$.getJSON("item/param/query/itemParamList/" + node.id,function(data){
 			  if(data.status == 200 && data.data){
 				 $("#"+formId+" .params").show();
 				 var paramData = JSON.parse(data.data.paramData);
 				 var html = "<ul>";
 				 for(var i in paramData){
+					 console.log(i);
 					 var pd = paramData[i];
 					 html+="<li><table>";
 					 html+="<tr><td colspan=\"2\" class=\"group\">"+pd.group+"</td></tr>";
-					 
 					 for(var j in pd.params){
 						 var ps = pd.params[j];
 						 html+="<tr><td class=\"param\"><span>"+ps+"</span>: </td><td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
