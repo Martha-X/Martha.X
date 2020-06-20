@@ -2,7 +2,7 @@ package martha.X.pojo;
 
 import java.util.Date;
 
-public class TbItemParam {
+public class TbItemParam extends TbItemParamText{
     private Long id;
 
     private Long itemCatId;
@@ -12,8 +12,8 @@ public class TbItemParam {
     private Date updated;
 
     private String paramData;
-
-    public Long getId() {
+    
+	public Long getId() {
         return id;
     }
 

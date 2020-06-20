@@ -12,13 +12,13 @@
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
         <if test="criteria.valid" >
           <trim prefix="(" suffix=")" prefixOverrides="and" >
             <foreach collection="criteria.criteria" item="criterion" >
               <choose >
                 <when test="criterion.noValue" >
-                  and ${criterion.condition}
+                  example and ${criterion.condition}
                 </when>
                 <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}

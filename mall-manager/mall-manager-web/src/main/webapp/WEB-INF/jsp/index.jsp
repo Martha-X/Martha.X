@@ -79,6 +79,7 @@
 				<ul>
 					<li id="item-list" data-url='productList'>商品管理</li>
 					<li id="item-add" data-url='item_add'>添加商品</li>
+					<li id="item-param-list" data-url='item_param_list'>商品规格</li>
 				</ul>
 			</div>
 		</div>
