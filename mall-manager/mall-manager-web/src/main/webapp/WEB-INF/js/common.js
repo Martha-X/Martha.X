@@ -198,12 +198,11 @@ var TT = FJNY = {
     },
     
     changeItemParam : function(node,formId){
-    	console.log(formId);
-    	console.log(node);
-    	$.getJSON("item/param/query/itemParamList/" + node.id,function(data){
+    	$.getJSON("item/param/query/itemcatid/" + node.id,function(data){
 			  if(data.status == 200 && data.data){
 				 $("#"+formId+" .params").show();
 				 var paramData = JSON.parse(data.data.paramData);
+				 console.log(paramData);
 				 var html = "<ul>";
 				 for(var i in paramData){
 					 console.log(i);
@@ -214,11 +213,10 @@ var TT = FJNY = {
 						 var ps = pd.params[j];
 						 html+="<tr><td class=\"param\"><span>"+ps+"</span>: </td><td><input autocomplete=\"off\" type=\"text\"/></td></tr>";
 					 }
-					 
 					 html+="</li></table>";
 				 }
 				 html+= "</ul>";
-				 $("#"+formId+" .params td").eq(1).html(html);
+				 $("#"+formId+" .params td div").html(html);
 			  }else{
 				 $("#"+formId+" .params").hide();
 				 $("#"+formId+" .params td").eq(1).empty();

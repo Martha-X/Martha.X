@@ -55,6 +55,10 @@
 			<textarea style="width: 800px; height: 300px; visibility: hidden;"
 				name="desc"></textarea>
 		</div>
+		<div class="form-item params hide">
+			<label for="" class="label-top" style="align-content: center;">商品规格:</label>
+			<div></div>
+		</div>
 		<a href="javascript:void(0)" class="easyui-linkbutton warning"
 			onclick="clearForm()">取消</a> <a href="javascript:void(0)"
 			class="easyui-linkbutton success" onclick="submitForm()">添加</a>

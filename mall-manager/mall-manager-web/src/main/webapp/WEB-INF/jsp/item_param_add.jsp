@@ -39,7 +39,6 @@
 	$(function(){
 		TT.initItemCat({
 			fun:function(node){
-				console.log("laile ");
 			$(".addGroupTr").hide().find(".param").remove();
 				//  判断选择的目录是否已经添加过规格
 			  $.getJSON("/item/param/query/itemcatid/" + node.id,function(data){

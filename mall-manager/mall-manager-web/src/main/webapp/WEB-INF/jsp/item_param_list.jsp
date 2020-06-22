@@ -28,9 +28,6 @@
 				text : '编辑',
 				iconCls : 'fa fa-edit',
 				handler : function() {
-					var data = [{"group":"g1","params":["aa","bb","cc"]},{"group":"g2","params":["ad","sd"]},{"group":"g3","params":["sdd","sdfs","dfg"]}];
-					//TT.changeItemParam(data,"itemParamUpdateTable");
-					console.log(123);
 					var ids = getSelections();
 					//判断如果未选定行，不执行，提示
 					if(ids.length == 0 || ids.indexOf(',') > 0){
@@ -46,13 +43,36 @@
 							//将商品描述进行显示
 							$.getJSON("item/param/query/itemParamList/" + data.id,function(result){
 								if(result.status == 200){
-									console.log(result);
 								}
 							})
 							TT.init({
 								"cid":data.itemCatName,
 							});
-							TT.changeItemParam(data,"itemParamUpdateTable");
+							var paramData = JSON.parse(data.paramData);//转为json格式
+							for(var i = 0;i<paramData.length;i++){//添加组
+								$(".addGroup").click();
+								for(var j = 1;j<paramData[i].params.length;j++){//添加参数框
+									$(".addParam")[i].click();
+								}
+							}
+							var group = document.querySelectorAll("input.textbox-text");//获取第一个input【组】
+							var param = document.querySelectorAll("input.textbox-text");//获取第二个input【参数】
+							var group = document.querySelectorAll("#" + group[0].id);//获取组id
+							var params = document.querySelectorAll("#" + param[1].id);//获取参数inputId
+							for(var i= 0;i<group.length-1;i++ ){//去除被克隆无用组并赋值
+								group[i].value = paramData[i].group;
+							}
+							var arr = [];//用于保存参数
+							for(var i = 0 ;i<paramData.length;i++){
+								for(var j = 0;j<paramData[i].params.length;j++){
+									arr.push(paramData[i].params[j]);
+								}
+							}
+							for(var i = 0;i<params.length-1;i++){//放入参数
+								params[i].value = arr[i];
+							}
+							//document.querySelectorAll("#_easyui_textbox_input1")[0].value = paramData[0].group;
+							//console.log(document.querySelectorAll("#_easyui_textbox_input1")[0].value);
 						}
 					}).window('open');
 				}

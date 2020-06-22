@@ -24,13 +24,13 @@
 	</tr>
 </table>
 <div  class="itemParamUpdateTable" style="display: none;">
-	<li class="param">
+	<li class="params">
 		<ul>
 			<li>
 				<input class="easyui-textbox" style="width: 150px;" name="group"/>&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton addParam"  title="添加参数" data-options="plain:true,iconCls:'fa fa-plus'"></a>
 			</li>
 			<li>
-				<span>|-------</span><input  style="width: 150px;" class="easyui-textbox" name="param"/>&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton delParam" title="删除" data-options="plain:true,iconCls:'fa fa-minus'"></a>						
+				<span>|-------</span><input  style="width: 150px;" class="easyui-textbox params" name="param"/>&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton delParam" title="删除" data-options="plain:true,iconCls:'fa fa-minus'"></a>						
 			</li>
 		</ul>
 	</li>
@@ -97,7 +97,7 @@
 					});					
 				}
 			});
-			var url = "/item/param/save/"+$("#itemParamUpdateTable [name=cid]").val();
+			var url = "/item/param/update/"+$("#itemParamUpdateTable [name=cid]").val();
 			$.post(url,{"paramData":JSON.stringify(params)},function(data){
 				if(data.status == 200){
 					$.messager.alert('提示','新增商品规格成功!',undefined,function(){

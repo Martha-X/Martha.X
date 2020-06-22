@@ -12,7 +12,7 @@
 		$(_2).addClass("textbox-f").hide();
 		var _3 = $(
 				"<span class=\"textbox\">"
-						+ "<input class=\"textbox-text\" autocomplete=\"off\">"
+						+ "<input class=\"textbox-text group\" autocomplete=\"off\">"
 						+ "<input type=\"hidden\" class=\"textbox-value\">"
 						+ "</span>").insertAfter(_2);
 		var _4 = $(_2).attr("name");
