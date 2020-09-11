@@ -35,7 +35,7 @@ public class TbItemParamController {
 	// 保存添加的规格模板
 	@RequestMapping("/save/{itemCatId}")
 	@ResponseBody
-	public FjnyResult addItemParam(@PathVariable Long itemCatId, String paramData) {
+	public FjnyResult addItemParam(@PathVariable Long itemCatId,String paramData) {
 		return tbItemParamService.addItemParam(itemCatId, paramData);
 	}
 
@@ -47,9 +47,11 @@ public class TbItemParamController {
 	}
 
 	// 保存添加的规格模板
-	@RequestMapping("/update/{itemCatId}")
+	@RequestMapping("/update/{itemCatId}/{id}")
 	@ResponseBody
-	public FjnyResult updateItemParam(@PathVariable Long itemCatId, String paramData) {
+	public FjnyResult updateItemParam(@PathVariable Long itemCatId, @PathVariable Long id,String paramData) {
+		tbItemParamService.updateItemParam(itemCatId, id, paramData);
+		System.out.println(id);
 		System.out.print(itemCatId);
 		System.out.print(paramData);
 		return FjnyResult.ok();

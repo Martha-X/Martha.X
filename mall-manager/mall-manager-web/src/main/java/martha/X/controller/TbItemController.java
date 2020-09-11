@@ -37,9 +37,9 @@ public class TbItemController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@ResponseBody
-	public FjnyResult saveTbItem(TbItem tbItem, String desc) {
+	public FjnyResult saveTbItem(TbItem tbItem, String desc,String itemParams) {
 		System.out.println(desc);
-		return tbItemService.saveItem(tbItem, desc);
+		return tbItemService.saveItem(tbItem, desc,itemParams);
 	}
 
 	@RequestMapping("/cat/list")

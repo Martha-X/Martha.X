@@ -86,4 +86,22 @@ public class TbItemParamServiceImpl implements TbItemParamService{
 		System.out.println(itemParamList);
 		return FjnyResult.ok(itemParamList);
 	}
+
+	@Override
+	public FjnyResult updateItemParam(Long itemCatId, Long id,String paramData) {
+		try {
+			TbItemParam record = new TbItemParam();
+			record.setId(id);
+			record.setItemCatId(itemCatId);
+			record.setParamData(paramData);
+			record.setCreated(new Date());
+			record.setUpdated(new Date());
+			System.out.println(record);
+			int i = tbItemParamMapper.updateByPrimaryKeySelective(record);
+			System.out.println(i);
+			return FjnyResult.ok();
+		}catch(Exception e) {
+			return FjnyResult.build(500,ExceptionUtil.getStackTrace(e));
+		}
+	}
 }

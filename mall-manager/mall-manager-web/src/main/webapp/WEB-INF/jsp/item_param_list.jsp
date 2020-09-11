@@ -6,7 +6,7 @@
 		<table id="itemParamList"></table>
 	</div>
 	<br /> <br />
-	<div id="itemParamUpadteWindow" class="easyui-window" title="Martha-X"
+	<div id="itemParamUpdateWindow" class="easyui-window" title="Martha-X"
 		style="width: 80%; height: 80%;"
 		data-options="iconCls:'icon-save',modal:true,closed:'true',href:'item_param_update'"></div>
 </div>
@@ -35,7 +35,7 @@
 						return;
 					}
 					//如果选定多行数据提示只能选择一个商品
-					$("#itemParamUpadteWindow").window({
+					$("#itemParamUpdateWindow").window({
 						onLoad:function(){
 							var data = $("#itemParamList").datagrid("getSelections")[0];
 							console.log(data);
@@ -45,9 +45,11 @@
 								if(result.status == 200){
 								}
 							})
-							TT.init({
+							TT.initItemParamCat({
 								"cid":data.itemCatName,
 							});
+							document.querySelector("[name=id]").value = data.id;
+							document.querySelector("[name=cid]").value = data.itemCatId;
 							var paramData = JSON.parse(data.paramData);//转为json格式
 							for(var i = 0;i<paramData.length;i++){//添加组
 								$(".addGroup").click();
@@ -55,8 +57,8 @@
 									$(".addParam")[i].click();
 								}
 							}
-							var group = document.querySelectorAll("input.textbox-text");//获取第一个input【组】
-							var param = document.querySelectorAll("input.textbox-text");//获取第二个input【参数】
+							var group = document.querySelectorAll("#itemParamUpdateWindow input.textbox-text");//获取第一个input【组】
+							var param = document.querySelectorAll("#itemParamUpdateWindow input.textbox-text");//获取第二个input【参数】
 							var group = document.querySelectorAll("#" + group[0].id);//获取组id
 							var params = document.querySelectorAll("#" + param[1].id);//获取参数inputId
 							for(var i= 0;i<group.length-1;i++ ){//去除被克隆无用组并赋值

@@ -58,6 +58,7 @@
 		<div class="form-item params hide">
 			<label for="" class="label-top" style="align-content: center;">商品规格:</label>
 			<div></div>
+			<input type="hidden" name="itemParams">
 		</div>
 		<a href="javascript:void(0)" class="easyui-linkbutton warning"
 			onclick="clearForm()">取消</a> <a href="javascript:void(0)"
@@ -77,14 +78,36 @@
 				}
 			});
 		});
+		
 		function submitForm() {
-			//输出表单键值对
-			alert($('#itemAddForm').serialize())
 			//当全部字段不符合要求时阻止表单提交并return
 			if (!$('#itemAddForm').form('validate')) {
 				$.messager.alert('提示', '表单还未填写完成！');
 				return;
 			}
+			//提取商品规格数据
+			var paramJson = [];
+			$("#itemAddForm .params li").each(function(i, e) {
+				var trs = $(e).find("tr");
+				var group = trs.eq(0).text();
+				var ps = [];
+				for (var i = 1; i < trs.length; i++) {
+					var tr = trs.eq(i);
+					ps.push({
+						"k" : $.trim(tr.find("td").eq(0).find("span").text()),
+						"v" : $.trim(tr.find("input").val())
+					});
+				}
+				paramJson.push({
+					"group" : group,
+					"params" : ps
+				});
+			});
+			paramJson = JSON.stringify(paramJson);
+			console.log(paramJson);
+			$("#itemAddForm [name=itemParams]").val(paramJson);
+			//输出表单键值对
+			alert($('#itemAddForm').serialize())
 			itemAddEditor.sync();
 			//ajax的post方式提交表单
 			//$('#itemAddForm').serialize()将表单序列号为key-value形式的字符串

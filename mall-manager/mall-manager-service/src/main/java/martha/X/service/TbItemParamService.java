@@ -8,4 +8,5 @@ public interface TbItemParamService {
 	public FjnyResult checkParam(Long itemCatId);
 	public FjnyResult addItemParam(Long itemCatId, String paramData);
 	public FjnyResult getTbItemParamList(Long id);
+	public FjnyResult updateItemParam(Long itemCatId, Long id,String paramData);
 }

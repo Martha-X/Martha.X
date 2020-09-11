@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <table cellpadding="5" style="margin-left: 30px" id="itemParamUpdateTable" class="itemParam">
+	<input type="hidden" name="id" style="width: 280px;"></input>
 	<tr>
 		<td>商品类目:</td>
-		<td><a href="javascript:void(0)" class="easyui-linkbutton selectItemCat">选择类目</a> 
+		<td><a href="javascript:void(0)" class="easyui-linkbutton selectItemParamCat">选择类目</a> 
 			<input type="hidden" name="cid" style="width: 280px;"></input>
 		</td>
 	</tr>
@@ -24,7 +25,7 @@
 	</tr>
 </table>
 <div  class="itemParamUpdateTable" style="display: none;">
-	<li class="params">
+	<li class="param">
 		<ul>
 			<li>
 				<input class="easyui-textbox" style="width: 150px;" name="group"/>&nbsp;<a href="javascript:void(0)" class="easyui-linkbutton addParam"  title="添加参数" data-options="plain:true,iconCls:'fa fa-plus'"></a>
@@ -37,23 +38,6 @@
 </div>
 <script style="text/javascript">
 	$(function(){
-		TT.initItemCat({
-			fun:function(node){
-				console.log("laile ");
-			$(".addGroupTr").hide().find(".param").remove();
-				//  判断选择的目录是否已经添加过规格
-			  $.getJSON("/item/param/query/itemcatid/" + node.id,function(data){
-				  if(data.status == 200 && data.data){
-					  $.messager.alert("提示", "该类目已经添加，请选择其他类目。", undefined, function(){
-						 $("#itemParamUpdateTable .selectItemCat").click();
-					  });
-					  return ;
-				  }
-				  $(".addGroupTr").show();
-			  });
-			}
-		});
-		
 		$(".addGroup").click(function(){
 			  var temple = $(".itemParamUpdateTable li").eq(0).clone();
 			  $(this).parent().parent().append(temple);
@@ -75,7 +59,7 @@
 		
 		$("#itemParamUpdateTable .submit").click(function(){
 			var params = [];
-			var groups = $("#itemParamAddTable [name=group]");
+			var groups = $("#itemParamUpdateTable [name=group]");
 			groups.each(function(i,e){
 				var p = $(e).parentsUntil("ul").parent().find("[name=param]");
 				var _ps = [];
@@ -94,13 +78,14 @@
 					params.push({
 						"group":_val,
 						"params":_ps
-					});					
+					});			
 				}
 			});
-			var url = "/item/param/update/"+$("#itemParamUpdateTable [name=cid]").val();
+			var url = "/item/param/update/"+$("#itemParamUpdateTable [name=cid]").val()+"/" + $("#itemParamUpdateTable [name=id]").val();
+			console.log(url);
 			$.post(url,{"paramData":JSON.stringify(params)},function(data){
 				if(data.status == 200){
-					$.messager.alert('提示','新增商品规格成功!',undefined,function(){
+					$.messager.alert('提示','修改商品规格成功!',undefined,function(){
 						$(".panel-tool-close").click();
     					$("#itemParamList").datagrid("reload");
     				});

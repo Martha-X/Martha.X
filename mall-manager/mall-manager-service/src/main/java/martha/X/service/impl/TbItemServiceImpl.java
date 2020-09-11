@@ -1,7 +1,6 @@
 package martha.X.service.impl;
 
 import java.util.Date;
-
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,9 +13,11 @@ import com.github.pagehelper.PageInfo;
 
 import martha.X.mapper.TbItemDescMapper;
 import martha.X.mapper.TbItemMapper;
+import martha.X.mapper.TbItemParamItemMapper;
 import martha.X.pojo.TbItem;
 import martha.X.pojo.TbItemDesc;
 import martha.X.pojo.TbItemExample;
+import martha.X.pojo.TbItemParamItem;
 import martha.X.service.TbItemService;
 import martha.X.utils.EsayUIDataGridResult;
 import martha.X.utils.FjnyResult;
@@ -28,7 +29,8 @@ public class TbItemServiceImpl implements TbItemService {
 	private TbItemMapper tbItemMapper;
 	@Autowired
 	private TbItemDescMapper tbItemDescMapper;
-
+	@Resource
+	private TbItemParamItemMapper tbItemParamItemMapper;
 	@Override
 	public EsayUIDataGridResult getTbItemList(Integer page, Integer rows) {
 		// 分页插件
@@ -43,19 +45,25 @@ public class TbItemServiceImpl implements TbItemService {
 	}
 
 	@Override
-	public FjnyResult saveItem(TbItem tbItem, String desc) {
+	public FjnyResult saveItem(TbItem tbItem, String desc,String itemParams) {
+		Date date = new Date();
 		long itemId = IDUtils.getItemId();
 		tbItem.setId(itemId);
-		tbItem.setCreated(new Date());
-		tbItem.setUpdated(new Date());
+		tbItem.setCreated(date);
+		tbItem.setUpdated(date);
 		tbItem.setStatus((byte) 1);
 		int insertSelective = tbItemMapper.insertSelective(tbItem);
 		TbItemDesc record = new TbItemDesc();
 		record.setItemId(tbItem.getId());
 		record.setItemDesc(desc);
-		record.setCreated(new Date());
-		record.setUpdated(new Date());
+		record.setCreated(date);
+		record.setUpdated(date);
 		tbItemDescMapper.insertSelective(record);
+		//商品规格数据添加
+		TbItemParamItem recordItem = new TbItemParamItem();
+		recordItem.setItemId(itemId);
+		recordItem.setParamData(itemParams);
+		tbItemParamItemMapper.insert(recordItem);
 		System.out.println(record);
 		if (insertSelective < 0) {
 			return FjnyResult.build(500, "添加商品失败！");
