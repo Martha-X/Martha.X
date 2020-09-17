@@ -13,11 +13,12 @@ import martha.X.utils.PictureResult;
 public class PictureUploadController {
 	@Autowired
 	private PictureUploadService pictureUploadService;
+
 	@RequestMapping("/pic/upload")
 	@ResponseBody
 	public PictureResult PictureUpload(MultipartFile uploadFile) {
-		//放到ftp
-		PictureResult pictureUpload= pictureUploadService.pictureUpload(uploadFile);
+		// 放到ftp
+		PictureResult pictureUpload = pictureUploadService.pictureUpload(uploadFile);
 		return pictureUpload;
 	}
 }

@@ -4,35 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Martha</title>
 <!--easyui-->
-<script src="easyui/jquery.min.js" type="text/javascript"
-	charset="utf-8"></script>
-<script src="easyui/jquery.easyui.min.js" type="text/javascript"
-	charset="utf-8"></script>
-<script src="easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"
-	charset="utf-8"></script>
-<!--开发-->
-<link rel="stylesheet" href="easyui/themes/gray/easyui.css">
-<link rel="stylesheet"
-	href="easyui/themes/super/css/font-awesome.min.css">
-<link rel="stylesheet" href="easyui/themes/super/superBlue.css"
-	id="themeCss">
-<script src="js/super.js" type="text/javascript" charset="utf-8"></script>
-<link href="/js/kindeditor-4.1.10/themes/default/default.css"
-	type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8"
-	src="/js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
-<script type="text/javascript" charset="utf-8"
-	src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
-<!--测试dist-->
-<link rel="stylesheet" type="text/css"
-	href="easyui/themes/super/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css"
-	href="easyui/themes/super/superBlue.css" id="themeCss">
-<script type="text/javascript" src="easyui/themes/super/super.js"></script>
-<script src="js/superDemo.js" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/jquery.easyui.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/locale/easyui-lang-zh_CN.js" charset="utf-8"></script>
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/easyui/themes/gray/easyui.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/easyui/themes/super/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/easyui/themes/super/superBlue.css" id="themeCss"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/js/kindeditor-4.1.10/themes/default/default.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/easyui/themes/super/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/easyui/themes/super/superBlue.css" id="themeCss"/>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/super.js"  charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/kindeditor-4.1.10/kindeditor-all-min.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/kindeditor-4.1.10/lang/zh_CN.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/easyui/themes/super/super.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/superDemo.js"  charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/TbItemManager.js"></script>
 </head>
 <body id="main" class="easyui-layout">
 	<div data-options="region:'north',border:false" class="super-north">
@@ -77,10 +67,14 @@
 			data-options="border:false,fit:true,selected:true">
 			<div title="商品管理" data-options="iconCls:'fa fa-table'">
 				<ul>
-					<li id="item-list" data-url='productList'>商品管理</li>
-					<li id="item-add" data-url='item_add'>添加商品</li>
-					<li id="item-param-list" data-url='item_param_list'>商品规格</li>
+					<li id="item-list" data-url='${pageContext.request.contextPath}/productList'>商品管理</li>
+					<li id="item-param-list" data-url='${pageContext.request.contextPath}/item_param_list'>商品规格</li>
 					<!-- <li id="itemParamInfo" data-url='itemParamInfo'>规格信息</li> -->
+				</ul>
+			</div>
+			<div title="网站内容管理" data-options="iconCls:'fa fa-table'">
+				<ul>
+					<li id="content" data-url='${pageContext.request.contextPath}/content'>内容分类管理</li>
 				</ul>
 			</div>
 		</div>
@@ -135,5 +129,4 @@
 	</div>
 
 </body>
-
 </html>

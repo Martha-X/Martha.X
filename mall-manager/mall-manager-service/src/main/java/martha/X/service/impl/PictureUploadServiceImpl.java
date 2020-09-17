@@ -14,16 +14,18 @@ import martha.X.utils.PictureResult;
 
 @Service
 public class PictureUploadServiceImpl implements PictureUploadService {
+//	String host = "47.90.101.219";
+//	int port = 21;
+//	String username = "Martha_ftp_01";
+//	String password = "Martha";
 	String host = "127.0.0.1";
 	int port = 21;
 	String username = "Martha";
 	String password = "Martha";
-
 	@Override
 	public PictureResult pictureUpload(MultipartFile uploadFile) {
 		InputStream in = null;
 		PictureResult p = new PictureResult();
-		;
 		try {
 			in = uploadFile.getInputStream();
 			// 判断是否为空
@@ -38,8 +40,12 @@ public class PictureUploadServiceImpl implements PictureUploadService {
 			DateTime dateTime = new DateTime();
 			String filePath = dateTime.toString("/yyyy/MM/dd");
 			String fileName = IDUtils.getImageName() + txt;
-			FtpUtil.uploadFile(host, port, username, password, "/", filePath, fileName, in);
-			String url = "http://localhost:8383" + filePath + "/" + fileName;
+			boolean b = FtpUtil.uploadFile(host, port, username, password, "/", filePath, fileName, in);
+			System.out.println(b);
+			//47.90.101.219
+			String url = "http://127.0.0.1:8383" + filePath + "/" + fileName;
+			//String url = "http://47.90.101.219:8080" + filePath + "/" + fileName;
+			System.out.println(url);
 			p.setError(0);
 			p.setUrl(url);
 			return p;

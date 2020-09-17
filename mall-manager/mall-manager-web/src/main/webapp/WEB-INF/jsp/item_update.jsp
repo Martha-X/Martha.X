@@ -21,7 +21,7 @@
 			<input type="hidden" name="id">
 			<div class="form-item">
 				<label for="" class="label-top">商品类目:</label> <a
-					href="javascript:void(0)" class="easyui-linkbutton selectItemCat">选择类目</a>
+					href="javascript:void(0)" class="easyui-linkbutton selectItemCat" data-absolutepath='${pageContext.request.contextPath}'>选择类目</a>
 				<input type="hidden" name="cid" style="width: 280px;"></input>
 			</div>
 			<div class="form-item">
@@ -88,7 +88,7 @@
 				//ajax的post方式提交表单
 				//$('#itemUpdateForm').serialize()将表单序列号为key-value形式的字符串
 				//将数据发送至/item/save【URL】，发送到服务器的数据$('#itemUpdateForm').serialize()【Data】，请求成功时运行的函数【function(data)】
-				$.post("/item/update", $('#itemUpdateForm').serialize(),
+				$.post("${pageContext.request.contextPath}/item/update", $('#itemUpdateForm').serialize(),
 					function(data) {
 						console.log(data);
 						if (data.status == 200) {

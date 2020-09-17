@@ -12,8 +12,10 @@ import com.github.pagehelper.PageInfo;
 import martha.X.mapper.TbItemCatMapper;
 import martha.X.mapper.TbItemDescMapper;
 import martha.X.mapper.TbItemParamMapper;
+import martha.X.pojo.TbItem;
 import martha.X.pojo.TbItemCat;
 import martha.X.pojo.TbItemDesc;
+import martha.X.pojo.TbItemExample;
 import martha.X.pojo.TbItemParam;
 import martha.X.pojo.TbItemParamExample;
 import martha.X.pojo.TbItemParamExample.Criteria;
@@ -103,5 +105,18 @@ public class TbItemParamServiceImpl implements TbItemParamService{
 		}catch(Exception e) {
 			return FjnyResult.build(500,ExceptionUtil.getStackTrace(e));
 		}
+	}
+
+	@Override
+	public FjnyResult operateItemParam(List<Long> ids) {
+		try {
+			for(Long id : ids) {
+				System.out.println(id);
+				tbItemParamMapper.deleteByPrimaryKey(id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return FjnyResult.ok();
 	}
 }

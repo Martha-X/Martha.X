@@ -63,15 +63,13 @@ public class TbItemController {
 
 	/**
 	 * 结合删除、上架、下架的方法
-	 * @param ids
+	 * @param ids 
 	 * @param optionsId
 	 * @return
 	 */
 	@RequestMapping("/operate")
 	@ResponseBody
-	public FjnyResult operateTbItem(@RequestParam("ids") List<Long> ids,
-			@RequestParam("optionsId") List<String> optionsId) {
-		System.out.println(ids + " " + optionsId);
-		return tbItemService.operateTbItem(ids, optionsId);
+	public FjnyResult operateTbItem(@RequestParam("itemIds") List<Long> itemIds,@RequestParam("optionsId") List<String> optionsId) {
+		return tbItemService.operateTbItem(itemIds, optionsId);
 	}
 }

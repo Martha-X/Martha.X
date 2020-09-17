@@ -4,7 +4,7 @@
 	<input type="hidden" name="id" style="width: 280px;"></input>
 	<tr>
 		<td>商品类目:</td>
-		<td><a href="javascript:void(0)" class="easyui-linkbutton selectItemParamCat">选择类目</a> 
+		<td><a href="javascript:void(0)" class="easyui-linkbutton selectItemParamCat" data-absolutepath='${pageContext.request.contextPath}'>选择类目</a> 
 			<input type="hidden" name="cid" style="width: 280px;"></input>
 		</td>
 	</tr>
@@ -81,7 +81,7 @@
 					});			
 				}
 			});
-			var url = "/item/param/update/"+$("#itemParamUpdateTable [name=cid]").val()+"/" + $("#itemParamUpdateTable [name=id]").val();
+			var url = "${pageContext.request.contextPath}/item/param/update/"+$("#itemParamUpdateTable [name=cid]").val()+"/" + $("#itemParamUpdateTable [name=id]").val();
 			console.log(url);
 			$.post(url,{"paramData":JSON.stringify(params)},function(data){
 				if(data.status == 200){

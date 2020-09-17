@@ -8,13 +8,13 @@
 	<br /> <br />
 	<div id="itemParamUpdateWindow" class="easyui-window" title="Martha-X"
 		style="width: 80%; height: 80%;"
-		data-options="iconCls:'icon-save',modal:true,closed:'true',href:'item_param_update'"></div>
+		data-options="iconCls:'icon-save',modal:true,closed:'true',href:'${pageContext.request.contextPath}/item_param_update'"></div>
 </div>
 <script type="text/javascript">
 	$('#itemParamList')
 	.datagrid(
 		{
-			url : 'item/param/list',
+			url : '${pageContext.request.contextPath}/item/param/list',
 			fit : true,
 			pagination : true,
 			fitColumns : true,
@@ -28,7 +28,7 @@
 				text : '编辑',
 				iconCls : 'fa fa-edit',
 				handler : function() {
-					var ids = getSelections();
+					var ids = getSelections("#itemParamList");
 					//判断如果未选定行，不执行，提示
 					if(ids.length == 0 || ids.indexOf(',') > 0){
 						$.messager.alert('提示','必需选择且只能选择一个商品！');
@@ -40,16 +40,11 @@
 							var data = $("#itemParamList").datagrid("getSelections")[0];
 							console.log(data);
 							$("#itemParamUpdateTable").form('load',data);
-							//将商品描述进行显示
-							$.getJSON("item/param/query/itemParamList/" + data.id,function(result){
-								if(result.status == 200){
-								}
-							})
 							TT.initItemParamCat({
 								"cid":data.itemCatName,
 							});
-							document.querySelector("[name=id]").value = data.id;
-							document.querySelector("[name=cid]").value = data.itemCatId;
+							document.querySelector("#itemParamUpdateTable [name=id]").value = data.id;
+							document.querySelector("#itemParamUpdateTable [name=cid]").value = data.itemCatId;
 							var paramData = JSON.parse(data.paramData);//转为json格式
 							for(var i = 0;i<paramData.length;i++){//添加组
 								$(".addGroup").click();
@@ -80,15 +75,35 @@
 				}
 			}, {
 				text : '刷新',
-				iconCls : 'fa fa-save',
+				iconCls : 'fa fa-refresh',
 				handler : function() {
-					//$("#dgTbItem").datagrid("reload");
+					$("#itemParamList").datagrid("reload");
 				}
 			}, {
 				text : '删除',
 				iconCls : 'fa fa-remove',
 				handler : function() {
-					//options("删除",3);
+					//itemIds 为商品id数组，存放一条或多条商品的id
+					var itemIds = getSelections("#itemParamList");
+					//判断如果未选定行，不执行，提示
+					if(itemIds.length == 0){
+						$.messager.alert('提示','必需选择一个商品！');
+						return;
+					}
+					//提醒是否删除数据
+					$.messager.confirm('确认','您确认想要删除ID为' + itemIds + "的商品吗？",function(r){
+						if(r){
+							//进行post交互
+							var optionsNeed = {"itemIds":itemIds};
+							$.post("item/param/operate",optionsNeed,function(data){
+								if(data.status==200){
+									$("#itemParamList").datagrid("reload");
+								}else{
+									alert("删除失败！")
+								}
+							});
+						}
+					});
 				}
 			}],
 			height : 400,
@@ -141,15 +156,5 @@
 			arr.push(e.group);
 		});
 		return arr.join(",");
-	}
-	function getSelections(){
-		var itemList = $("#itemParamList");
-		var sels = itemList.datagrid("getSelections");
-		var ids = [];
-		for(var i in sels){
-			ids.push(sels[i].id);
-		}
-		ids = ids.join(",");
-		return ids;
 	}
 </script>

@@ -1,3 +1,4 @@
+var contextPath = null;
 Date.prototype.format = function(format){ 
     var o =  { 
     "M+" : this.getMonth()+1, //month 
@@ -25,7 +26,7 @@ var TT = FJNY = {
 		//指定上传文件参数名称
 		filePostName  : "uploadFile",
 		//指定上传文件请求的url。
-		uploadJson : '/pic/upload',
+		uploadJson :  '/mall-manager-web/pic/upload',
 		//上传类型，分别为image、flash、media、file
 		dir : "image"
 	},
@@ -71,47 +72,50 @@ var TT = FJNY = {
     },
     // 初始化图片上传组件
     initPicUpload : function(data){
-    	$(".picFileUpload").each(function(i,e){
-    		var _ele = $(e);
-    		_ele.siblings("div.pics").remove();
-    		_ele.after('\
-    			<div class="pics">\
-        			<ul></ul>\
-        		</div>');
-    		// 回显图片
-        	if(data && data.pics){
-        		var imgs = data.pics.split(",");
-        		for(var i in imgs){
-        			if($.trim(imgs[i]).length > 0){
-        				_ele.siblings(".pics").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
-        			}
-        		}
-        	}
-        	//给“上传图片按钮”绑定click事件
-        	$(e).click(function(){
-        		var form = $(this).parentsUntil("form").parent("form");
-        		//打开图片上传窗口
-        		KindEditor.editor(TT.kingEditorParams).loadPlugin('multiimage',function(){
-        			var editor = this;
-        			editor.plugin.multiImageDialog({
-						clickFn : function(urlList) {
-							var imgArray = [];
-							KindEditor.each(urlList, function(i, data) {
-								imgArray.push(data.url);
-								form.find(".pics ul").append("<li><a href='"+data.url+"' target='_blank'><img src='"+data.url+"' width='80' height='50' /></a></li>");
-							});
-							form.find("[name=image]").val(imgArray.join(","));
-							editor.hideDialog();
-						}
-					});
-        		});
-        	});
-    	});
+        $(".picFileUpload").each(function(i,e){
+            var _ele = $(e);
+            _ele.siblings("div.pics").remove();
+            _ele.after('\
+                <div class="pics">\
+                    <ul></ul>\
+                </div>');
+            // 回显图片
+            if(data && data.pics){
+                var imgs = data.pics.split(",");
+                for(var i in imgs){
+                    if($.trim(imgs[i]).length > 0){
+                        _ele.siblings(".pics").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
+                    }
+                }
+            }
+            //给“上传图片按钮”绑定click事件
+            $(e).click(function(){
+                var form = $(this).parentsUntil("form").parent("form");
+                //打开图片上传窗口
+                KindEditor.editor(TT.kingEditorParams).loadPlugin('multiimage',function(){
+                    var editor = this;
+                    editor.plugin.multiImageDialog({
+                        clickFn : function(urlList) {
+                            var imgArray = [];
+                            KindEditor.each(urlList, function(i, data) {
+                                imgArray.push(data.url);
+                                form.find(".pics ul").append("<li><a href='"+data.url+"' target='_blank'><img src='"+data.url+"' width='80' height='50' /></a></li>");
+                            });
+                            form.find("[name=image]").val(imgArray.join(","));
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+        });
     },
     // 初始化选择类目组件
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
+			console.log(e);
     		var _ele = $(e);
+			console.log(_ele);
+			var absolutepath = _ele[0].dataset.absolutepath;
     		if(data && data.cid){
     			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
     		}else{
@@ -129,7 +133,7 @@ var TT = FJNY = {
     			    onOpen : function(){
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'/item/cat/list',
+    			    		url: absolutepath + '/item/cat/list',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){
@@ -151,9 +155,19 @@ var TT = FJNY = {
     		});
     	});
     },
+	//
+	getContextPath : function(){
+		$(".selectItemCat").each(function(i,tag){
+			var _ele = $(tag);
+			contextPath = _ele[0].dataset.absolutepath;
+		});
+		return contextPath;
+	},
+	
     initItemParamCat : function(data){
     	$(".selectItemParamCat").each(function(i,e){
     		var _ele = $(e);
+			var absolutepath = _ele[0].dataset.absolutepath;
     		if(data && data.cid){
     			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
     		}else{
@@ -171,7 +185,7 @@ var TT = FJNY = {
     			    onOpen : function(){
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'/item/cat/list',
+    			    		url:absolutepath +'/item/cat/list',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){
@@ -237,7 +251,7 @@ var TT = FJNY = {
     },
     
     changeItemParam : function(node,formId){
-    	$.getJSON("item/param/query/itemcatid/" + node.id,function(data){
+    	$.getJSON(this.getContextPath() + "/item/param/query/itemcatid/" + node.id,function(data){
 			  if(data.status == 200 && data.data){
 				 $("#"+formId+" .params").show();
 				 var paramData = JSON.parse(data.data.paramData);
@@ -273,13 +287,15 @@ var TT = FJNY = {
     },
     
     /**
-     * 初始化单图片上传组件 <br/>
-     * 选择器为：.onePicUpload <br/>
-     * 上传完成后会设置input内容以及在input后面追加<img> 
+	     * 初始化单图片上传组件 <br/>
+	     * 选择器为：.onePicUpload <br/>
+	     * 上传完成后会设置input内容以及在input后面追加<img> 
      */
     initOnePicUpload : function(){
+		console.log("zhixingle");
     	$(".onePicUpload").click(function(){
 			var _self = $(this);
+			console.log("_self" + _self);
 			KindEditor.editor(TT.kingEditorParams).loadPlugin('image', function() {
 				this.plugin.imageDialog({
 					showRemote : false,

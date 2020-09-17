@@ -1,5 +1,7 @@
 package martha.X.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,14 +41,7 @@ public class TbItemParamController {
 		return tbItemParamService.addItemParam(itemCatId, paramData);
 	}
 
-	@RequestMapping("/query/itemParamList/{id}")
-	@ResponseBody
-	public FjnyResult getTbItemParamList(@PathVariable Long id) {
-		System.out.println("itemId" + id);
-		return tbItemParamService.getTbItemParamList(id);
-	}
-
-	// 保存添加的规格模板
+	// 保存修改后的规格模板
 	@RequestMapping("/update/{itemCatId}/{id}")
 	@ResponseBody
 	public FjnyResult updateItemParam(@PathVariable Long itemCatId, @PathVariable Long id,String paramData) {
@@ -55,5 +50,11 @@ public class TbItemParamController {
 		System.out.print(itemCatId);
 		System.out.print(paramData);
 		return FjnyResult.ok();
+	}
+	
+	@RequestMapping("/operate")
+	@ResponseBody
+	public FjnyResult operateItemParam(@RequestParam("itemIds") List<Long> itemIds) {
+		return tbItemParamService.operateItemParam(itemIds);
 	}
 }

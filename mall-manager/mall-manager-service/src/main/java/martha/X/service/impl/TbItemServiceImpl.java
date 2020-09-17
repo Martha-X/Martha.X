@@ -31,6 +31,7 @@ public class TbItemServiceImpl implements TbItemService {
 	private TbItemDescMapper tbItemDescMapper;
 	@Resource
 	private TbItemParamItemMapper tbItemParamItemMapper;
+
 	@Override
 	public EsayUIDataGridResult getTbItemList(Integer page, Integer rows) {
 		// 分页插件
@@ -45,7 +46,7 @@ public class TbItemServiceImpl implements TbItemService {
 	}
 
 	@Override
-	public FjnyResult saveItem(TbItem tbItem, String desc,String itemParams) {
+	public FjnyResult saveItem(TbItem tbItem, String desc, String itemParams) {
 		Date date = new Date();
 		long itemId = IDUtils.getItemId();
 		tbItem.setId(itemId);
@@ -59,7 +60,7 @@ public class TbItemServiceImpl implements TbItemService {
 		record.setCreated(date);
 		record.setUpdated(date);
 		tbItemDescMapper.insertSelective(record);
-		//商品规格数据添加
+		// 商品规格数据添加
 		TbItemParamItem recordItem = new TbItemParamItem();
 		recordItem.setItemId(itemId);
 		recordItem.setParamData(itemParams);
